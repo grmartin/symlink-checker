@@ -304,7 +304,7 @@ static void dirwalk (char *path, int pathlen, dev_t dev)
 static void usage_error (void)
 {
 	fprintf(stderr, progver, progname, Symlinks_VERSION_MAJOR, Symlinks_VERSION_MINOR);
-	fprintf(stderr, "Usage:\t%s [-cdorstfv] dirlist\n\n", progname);
+	fprintf(stderr, "Usage:\t%s [-cdorstv] dirlist\n\n", progname);
 	fprintf(stderr, "Flags:"
 		"\t-c == change absolute/messy links to relative\n"
 		"\t-d == delete dangling links\n"
