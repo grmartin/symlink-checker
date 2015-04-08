@@ -33,7 +33,7 @@
 
 static char *progname;
 static int verbose = 0, fix_links = 0, recurse = 0, delete = 0, shorten = 0,
-		testing = 0, single_fs = 1;
+		testing = 0, single_fs = 1, structure_output = 0;
 
 /*
  * tidypath removes excess slashes and "." references from a path string
@@ -74,7 +74,6 @@ static int substr (char *s, char *old, char *new)
 		free(tmp);
 	return 1;
 }
-
 
 static int tidy_path (char *path)
 {
@@ -158,7 +157,6 @@ static int shorten_path (char *path, char *abspath)
 ughh:
 	return shortened;
 }
-
 
 static void fix_symlink (char *path, dev_t my_dev)
 {
@@ -304,7 +302,7 @@ static void dirwalk (char *path, int pathlen, dev_t dev)
 static void usage_error (void)
 {
 	fprintf(stderr, progver, progname, Symlinks_VERSION_MAJOR, Symlinks_VERSION_MINOR);
-	fprintf(stderr, "Usage:\t%s [-cdorstv] dirlist\n\n", progname);
+	fprintf(stderr, "Usage:\t%s [-cdorstfv] dirlist\n\n", progname);
 	fprintf(stderr, "Flags:"
 		"\t-c == change absolute/messy links to relative\n"
 		"\t-d == delete dangling links\n"
@@ -312,6 +310,7 @@ static void usage_error (void)
 		"\t-r == recurse into subdirs\n"
 		"\t-s == shorten lengthy links (displayed in output only when -c not specified)\n"
 		"\t-t == show what would be done by -c\n"
+		"\t-f == use structured output format (json)\n"
 		"\t-v == verbose (show all symlinks)\n\n");
 	exit(1);
 }
@@ -340,13 +339,14 @@ int main(int argc, char **argv)
 			if (*++p == '\0')
 				usage_error();
 			while ((c = *p++)) {
-				     if (c == 'c')	fix_links = 1;
-				else if (c == 'd')	delete    = 1;
-				else if (c == 'o')	single_fs = 0;
-				else if (c == 'r')	recurse   = 1;
-				else if (c == 's')	shorten   = 1;
-				else if (c == 't')	testing   = 1;
-				else if (c == 'v')	verbose   = 1;
+				     if (c == 'c')	fix_links        = 1;
+				else if (c == 'd')	delete           = 1;
+				else if (c == 'o')	single_fs        = 0;
+				else if (c == 'r')	recurse          = 1;
+				else if (c == 's')	shorten          = 1;
+				else if (c == 't')	testing          = 1;
+				else if (c == 'v')	verbose          = 1;
+				else if (c == 'f')	structure_output = 1;
 				else			usage_error();
 			}
 		} else {
