@@ -1,3 +1,5 @@
+#import "cmake_configuration.h"
+
 #include <unistd.h>
 #ifndef _POSIX_SOURCE
 #define _POSIX_SOURCE
@@ -27,7 +29,8 @@
 #define PATH_MAX 1024
 #endif
 
-#define progver "%s: scan/change symbolic links - v1.3 - by Mark Lord\n\n"
+#define progver "%s: scan/change symbolic links - v%d.%d - by Mark Lord and Glenn R. Martin\n\n"
+
 static char *progname;
 static int verbose = 0, fix_links = 0, recurse = 0, delete = 0, shorten = 0,
 		testing = 0, single_fs = 1;
@@ -300,8 +303,8 @@ static void dirwalk (char *path, int pathlen, dev_t dev)
 
 static void usage_error (void)
 {
-	fprintf(stderr, progver, progname);
-	fprintf(stderr, "Usage:\t%s [-cdorstv] dirlist\n\n", progname);
+	fprintf(stderr, progver, progname, Symlinks_VERSION_MAJOR, Symlinks_VERSION_MINOR);
+	fprintf(stderr, "Usage:\t%s [-cdorstfv] dirlist\n\n", progname);
 	fprintf(stderr, "Flags:"
 		"\t-c == change absolute/messy links to relative\n"
 		"\t-d == delete dangling links\n"

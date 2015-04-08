@@ -1,0 +1,11 @@
+//
+// Created by Glenn R. Martin on 4/8/15.
+//
+
+#ifndef SYMLINKS_CMAKE_CONFIGURATION_H
+#define SYMLINKS_CMAKE_CONFIGURATION_H
+
+#define Symlinks_VERSION_MAJOR @Symlinks_VERSION_MAJOR@
+#define Symlinks_VERSION_MINOR @Symlinks_VERSION_MINOR@
+
+#endif //SYMLINKS_CMAKE_CONFIGURATION_H
